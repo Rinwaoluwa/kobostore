@@ -6,7 +6,8 @@ Kobostore is an e-commerce platform built with Next.js 13, leveraging the new Ap
 ## Setup and Local Development
 
 1. Clone the repository:
-git clone [https://github.com/Rinwaoluwa/kobostore.git](https://github.com/Rinwaoluwa/kobostore.git)cd kobostore
+git clone [Kobo Store](https://github.com/Rinwaoluwa/kobostore.git)
+cd kobostore
 
 
 2. Install dependencies:
@@ -17,30 +18,11 @@ npm install
 
 ## Design Decisions, Optimizations, and Trade-offs
 
-1. **Next.js 13 App Router**: The project uses the new App Router for improved performance and easier implementation of nested layouts.
+**Meta-data Handling and SEO Considerations**
 
-2. **Sanity CMS**: Content management is handled through Sanity, allowing for easy content updates and scalability.
+Initially, the product page was a server-side component, which allowed for the integration of meta-data crucial for SEO. However, to leverage Redux global state management, a significant architectural decision was made to refactor this page into a client-side component. This meant removing the server-rendered meta-data and creating a distinct client-side component specifically designed to handle state interactions efficiently. To mitigate the potential SEO drawbacks, other sections of the application were carefully optimized for search engines by embedding necessary meta-data within static or server-rendered components. This trade-off allows for dynamic client-side behavior without compromising the site's overall SEO integrity.
 
-3. **TypeScript**: Used throughout the project for improved type safety and developer experience.
+**Client-Side Component Isolation**
+The shift to a client-side component was further refined by isolating it within a distinct module, utilizing the use client directive. This separation was necessary due to the constraints imposed by the root layout's server-side nature. By creating a dedicated client-side component, we ensured that the application could manage state globally without unnecessary re-renders or performance hits, maintaining a clean and efficient codebase.
 
-4. **Tailwind CSS**: Chosen for rapid UI development and easy customization.
 
-5. **Server Components**: Utilized where possible to reduce client-side JavaScript and improve initial page load times.
-
-6. **Dynamic Imports**: Used for optimizing loading of components like the shopping cart.
-
-7. **Responsive Design**: The UI is designed to be responsive across various device sizes.
-
-8. **Trade-off**: The project uses client-side fetching for some data, which may impact initial load performance but provides a more dynamic user experience.
-
-## SEO Handling
-
-1. **Metadata API**: Next.js 13's metadata API is used to set page-specific metadata, including titles and descriptions.
-
-2. **Semantic HTML**: Semantic HTML elements are used throughout the project to improve accessibility and SEO.
-
-3. **Server-side Rendering**: Many pages use server-side rendering, ensuring that content is available for search engine crawlers.
-
-5. **Sitemap**: A sitemap is generated to help search engines discover and index all pages of the site.
-
-6. **Structured Data**: JSON-LD structured data is implemented for product pages to enhance rich snippets in search results.

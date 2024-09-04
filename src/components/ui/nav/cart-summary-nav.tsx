@@ -28,6 +28,11 @@ export const CartSummaryNav = () => {
 };
 
 const CartSummaryNavInner = ({total}: {total: number}) => {
+	const cart = useAppSelector((state: RootState) => state.cart);
+	const cartTotal = cart.reduce(
+		(acc, sum) => acc + sum.price * sum.quantity,
+		0
+	  );
 	return (
 		<TooltipProvider>
 			<Tooltip delayDuration={100}>
@@ -48,6 +53,12 @@ const CartSummaryNavInner = ({total}: {total: number}) => {
 						</YnsLink>
 					</div>
 				</TooltipTrigger>
+				<TooltipContent side="left" sideOffset={25}>
+					<p>Total Items: {total}</p>
+					<p>
+						Total Price: {cartTotal}
+					</p>
+				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
 	);
