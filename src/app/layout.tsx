@@ -1,8 +1,12 @@
 import "./globals.css";
 import type { Metadata } from "next";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "@/lib/redux/store";
 
 import { NavMenu } from "@/components/ui/nav/nav-menu";
 import Footer from "@/components/ui/Footer";
+import { Providers } from "@/components/Provider";
 
 export const metadata: Metadata = {
   title: "Kobo Store Product Listing",
@@ -19,10 +23,12 @@ export default function Layout({ children, modal }: LayoutProps) {
   return (
     <html lang="en">
       <body className="bg-white">
-        <NavMenu />
-        {children}
-        <Footer />
-        {modal}
+        <Providers>
+          <NavMenu />
+          {children}
+          <Footer />
+          {modal}
+        </Providers>
       </body>
     </html>
   );
