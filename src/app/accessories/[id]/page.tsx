@@ -104,7 +104,7 @@ export default async function SingleProductPage({
                 }
                 src={product.imageUrl}
                 width={700}
-                height={400}
+                height={700}
                 sizes="(max-width: 1024x) 100vw, (max-width: 1280px) 50vw, 700px"
                 loading="eager"
                 priority

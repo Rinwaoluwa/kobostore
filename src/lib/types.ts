@@ -3,6 +3,6 @@ export type Product = {
   name: string;
   description: string;
   price: number;
-  category:"shirts" | "bags" | "shoes";
+  category:"apparels" | "accessories";
   imageUrl: string;
 };

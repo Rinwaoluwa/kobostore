@@ -10,11 +10,11 @@ export const metadata: Metadata = {
 };
 
 export default async function ApparelPage() {
-  const apparels = products.filter((product: Product) => !product.category.includes("accessories"));
+  const accessories = products.filter((product: Product) => !product.category.includes("apparels"))
   return (
     <div className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 pb-6 pt-6 sm:px-6 lg:px-8 mx-auto px-4 py-8">
-      <h1 className="text-3xl font-bold mb-6">Category: Apparel</h1>
-      <ApparelGrid items={apparels} />
+      <h1 className="text-3xl font-bold mb-6">Category: Accessories</h1>
+      <ApparelGrid items={accessories} />
     </div>
   );
 }
