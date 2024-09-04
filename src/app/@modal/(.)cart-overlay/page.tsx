@@ -1,3 +1,5 @@
+"use client";
+
 import Image from "next/image";
 import { CartAsideContainer } from "./cart-aside";
 import { CartModalAddSideEffect } from "./cart-side-effect";
@@ -5,17 +7,23 @@ import { Button } from "@/components/ui/shadcn/button";
 import { YnsLink } from "@/components/yns-link";
 import { products } from "@/lib/constants";
 import { TrashcanSVG } from "@/components/ui/TrashcanSVG";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
+import { RootState } from "@/lib/redux/store";
+import { removeFromCart } from "@/lib/redux/slice/cartSlice";
 
-export default async function CartModalPage({
-  searchParams,
-}: {
-  searchParams: { add?: string };
+export default function CartModalPage({
 }) {
-  // TODO fix type
-  const cart = [1, 2, 4];
+  const dispatch = useAppDispatch();
+  const cart = useAppSelector((state: RootState) => state.cart);
+  const cartTotal = cart.reduce((acc, sum) => acc + (sum.price * sum.quantity),0);
 
   if (!cart || cart.length === 0) {
     return null;
+  };
+
+  const handleDelete = (id: string) => {
+    console.log("delete")
+    dispatch(removeFromCart(id));
   }
 
   return (
@@ -32,7 +40,7 @@ export default async function CartModalPage({
 
         <div className="mt-8">
           <ul role="list" className="-my-6 divide-y divide-neutral-200">
-            {products.map((product) => (
+            {cart.map((product) => (
               <li
                 key={product.id}
                 className="grid grid-cols-[4rem,1fr,max-content] grid-rows-[auto,auto] gap-x-4 gap-y-2 py-6"
@@ -54,14 +62,14 @@ export default async function CartModalPage({
                   ₦{product.price}
                 </p>
                 <p className="self-end text-sm font-medium text-muted-foreground">
-                  Quantity: 2pcs
+                  Quantity: {product.quantity}
                 </p>
                 <button
                   role="button"
                   aria-describedby="delete button"
                   tabIndex={0}
                   className="hover:scale-[1.1] transition-all flex justify-end"
-                //   onClick={() => 0}
+                  onClick={() => handleDelete(product.id)}
                 >
                   <TrashcanSVG />
                 </button>
@@ -76,13 +84,9 @@ export default async function CartModalPage({
           id="cart-overlay-description"
           className="flex justify-between text-base font-medium text-neutral-900"
         >
-          <p>Total</p>
+          <p>Total: </p>
           <p>
-            {/* {formatMoney({
-							amount: total,
-							currency,
-							locale,
-						})} */}
+          ₦{cartTotal.toFixed(2)}
           </p>
         </div>
         <p className="mt-0.5 text-sm text-neutral-500">
@@ -96,7 +100,6 @@ export default async function CartModalPage({
           <YnsLink href="/cart">Go to payment</YnsLink>
         </Button>
       </div>
-      {/* {searchParams.add && <CartModalAddSideEffect productId={searchParams.add} />} */}
     </CartAsideContainer>
   );
 }
