@@ -4,6 +4,7 @@ import Link from "next/link";
 import { useEffect, useState } from "react";
 import { CartSummaryNav } from "./cart-summary-nav";
 import { usePathname } from "next/navigation";
+import { Providers } from "@/components/Provider";
 
 export function NavMenu() {
   const pathname = usePathname()
@@ -58,7 +59,9 @@ export function NavMenu() {
           </Link>
         </nav>
         <div className="space-x-4">
-          <CartSummaryNav />
+          <Providers>
+            <CartSummaryNav />
+          </Providers>
         </div>
       </div>
     </header>
