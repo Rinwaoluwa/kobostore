@@ -15,7 +15,6 @@ export default function ApparelCard({ item }: ApparelCardProp) {
             src={item.imageUrl}
             alt={item.name}
             layout="fill"
-            objectFit="cover"
             className="aspect-square transition-transform duration-300 ease-in-out hover:scale-105"
           />
         </div>

@@ -14,13 +14,15 @@ import { YnsLink } from "@/components/yns-link";
 import { products } from "@/lib/constants";
 
 export const CartSummaryTable = ({ cart }: { cart: any }) => {
-
   return (
     <form className="max-w-2xl">
       <h1 className="text-3xl font-bold mb-6">Your cart</h1>
       <Table>
         <TableHeader>
           <TableRow>
+            <TableHead className="hidden w-24 sm:table-cell">
+              <span className="sr-only">Image</span>
+            </TableHead>
             <TableHead className="">Product</TableHead>
             <TableHead className="w-1/6 min-w-32">Price</TableHead>
             <TableHead className="w-1/6 min-w-32">Quantity</TableHead>
@@ -48,9 +50,31 @@ export const CartSummaryTable = ({ cart }: { cart: any }) => {
                     {product.name}
                   </YnsLink>
                 </TableCell>
-                <TableCell>{product.price}</TableCell>
-                <TableCell>{/* Quantity*/}2</TableCell>
-                <TableCell className="text-right">{/*Total*/}6</TableCell>
+                <TableCell>₦{product.price}</TableCell>
+                <TableCell>
+                  <span className="flex flex-row items-center text-foreground">
+                    <button
+                      className="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 rounded-md text-xs group aspect-square p-0"
+                      type="submit"
+                    >
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-neutral-100 pb-0.5 font-bold leading-none text-black transition-colors group-hover:bg-neutral-500 group-hover:text-white">
+                        –
+                      </span>
+                    </button>
+                    <span className="inline-block min-w-8 px-1 text-center tabular-nums">
+                      1
+                    </span>
+                    <button
+                      className="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 rounded-md text-xs group aspect-square p-0"
+                      type="submit"
+                    >
+                      <span className="flex h-4 w-4 items-center justify-center rounded-full bg-neutral-100 pb-0.5 font-bold leading-none text-black transition-colors group-hover:bg-neutral-500 group-hover:text-white">
+                        +
+                      </span>
+                    </button>
+                  </span>
+                </TableCell>
+                <TableCell className="text-right">₦{/*Total*/}6</TableCell>
               </TableRow>
             );
           })}
@@ -70,6 +94,7 @@ export const CartSummaryTable = ({ cart }: { cart: any }) => {
         </TableBody>
       </Table>
     </form>
+    /*<span class="flex flex-row items-center text-foreground"><button class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 rounded-md text-xs group aspect-square p-0" type="submit" formaction="javascript:throw new Error('A React form was unexpectedly submitted. If you called form.submit() manually, consider using form.requestSubmit() instead. If you\'re trying to use event.stopPropagation() in a submit event handler, consider also calling event.preventDefault().')"><span class="flex h-4 w-4 items-center justify-center rounded-full bg-neutral-100 pb-0.5 font-bold leading-none text-black transition-colors group-hover:bg-neutral-500 group-hover:text-white">–</span></button><span class="inline-block min-w-8 px-1 text-center tabular-nums">1</span><button class="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 rounded-md text-xs group aspect-square p-0" type="submit" formaction="javascript:throw new Error('A React form was unexpectedly submitted. If you called form.submit() manually, consider using form.requestSubmit() instead. If you\'re trying to use event.stopPropagation() in a submit event handler, consider also calling event.preventDefault().')"><span class="flex h-4 w-4 items-center justify-center rounded-full bg-neutral-100 pb-0.5 font-bold leading-none text-black transition-colors group-hover:bg-neutral-500 group-hover:text-white">+</span></button></span>*/
     // <TableFooter>
     //   {cart.taxBreakdown.map((tax, idx) => (
     //     <TableRow key={idx + tax.taxAmount} className="font-normal">

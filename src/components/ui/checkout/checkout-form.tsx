@@ -83,7 +83,7 @@ export default function CheckoutForm() {
                 autoComplete="shipping country"
                 onChangeValue={(value) => console.log(value)}
                 value={getValues?.("country")}
-                errors={errors?.country?.message}
+                errors={errors?.country?.message as any}
               />
             </div>
             {errors.country && (
@@ -206,7 +206,7 @@ export default function CheckoutForm() {
 
         <button
           type="submit"
-          className="mt-6 w-full bg-blue-600 text-white py-2 px-4 rounded-md hover:bg-blue-700 transition duration-200"
+          className="mt-6 w-full bg-slate-900 text-white py-2 px-4 rounded-md hover:opacity-30 transition duration-200"
         >
           Continue to shipping
         </button>

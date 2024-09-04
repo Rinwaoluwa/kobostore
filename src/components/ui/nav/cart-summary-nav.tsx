@@ -2,6 +2,8 @@ import { Suspense } from "react";
 import { ShoppingBagIcon } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../shadcn/tooltip";
 import { YnsLink } from "../../yns-link";
+import { useAppSelector } from "@/lib/redux/hooks";
+import { RootState } from "@/lib/redux/store";
 
 
 const CartFallback = () => (
@@ -11,19 +13,19 @@ const CartFallback = () => (
 );
 
 export const CartSummaryNav = () => {
-	const cart = 0;
-	if(!cart) {
+	const cart = useAppSelector((state: RootState) => state.cart);
+	if(!cart.length || cart.length === 0) {
 		return <CartFallback />
 	};
 
 	return (
 		<Suspense fallback={<CartFallback />}>
-			<CartSummaryNavInner />
+			<CartSummaryNavInner total={cart.length} />
 		</Suspense>
 	);
 };
 
-const CartSummaryNavInner = async () => {
+const CartSummaryNavInner = ({total}: {total: number}) => {
 	return (
 		<TooltipProvider>
 			<Tooltip delayDuration={100}>
@@ -37,19 +39,13 @@ const CartSummaryNavInner = async () => {
 						>
 							<ShoppingBagIcon />
 							<span className="absolute bottom-0 right-0 inline-flex h-5 w-5 translate-x-1/2 translate-y-1/2 items-center justify-center rounded-full border-2 bg-white text-center text-xs">
-								{/* <span className="sr-only">{t("itemsInCart")}: </span> */}
-								{/* {totalItems} */}
+								<span className="sr-only">items in cart: </span>
+								{total}
 							</span>
 							<span className="sr-only"></span>
 						</YnsLink>
 					</div>
 				</TooltipTrigger>
-				<TooltipContent side="left" sideOffset={25}>
-					{/* <p>{t("totalItems", { count: totalItems })}</p> */}
-					<p>
-						{/* {t("total")}: {formatMoney({ amount: total, currency: cart.cart.currency, locale })} */}
-					</p>
-				</TooltipContent>
 			</Tooltip>
 		</TooltipProvider>
 	);

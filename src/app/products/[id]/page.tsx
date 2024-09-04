@@ -1,6 +1,7 @@
+"use client";
+
 import { notFound } from "next/navigation";
 import Image from "next/image";
-import { type Metadata } from "next/types";
 import {
   Breadcrumb,
   BreadcrumbItem,
@@ -10,41 +11,28 @@ import {
   BreadcrumbSeparator,
 } from "@/components/ui/shadcn/breadcrumb";
 import { AddToCartButton } from "@/components/add-to-cart-button";
-// import { cn, deslugify, formatMoney, formatProductName } from "@/lib/utils";
 import { YnsLink } from "@/components/yns-link";
 import { products } from "@/lib/constants";
+import { useAppDispatch } from "@/lib/redux/hooks";
+import { addToCart } from "@/lib/redux/slice/cartSlice";
 
-export const generateMetadata = async ({
-  params,
-  searchParams,
-}: {
-  params: { id: string };
-  searchParams: { variant?: string };
-}): Promise<Metadata> => {
-  const product = products.find((variant) => variant.id === params.id);
-  if (!product) {
-    return notFound();
-  }
-
-  return {
-    title: product.name,
-    description: product.description,
-  } satisfies Metadata;
-};
-
-export default async function SingleProductPage({
+export default function SingleProductPage({
   params,
   searchParams,
 }: {
   params: { id: string };
   searchParams: { variant?: string };
 }) {
+  const dispatch = useAppDispatch();
   const product = products.find((variant) => variant.id === params.id);
   if (!product) {
     return notFound();
   }
-
   const category = product.category;
+
+  const handleAddtoCart = () => {
+    dispatch(addToCart(product));
+  };
 
   return (
     <main className="mx-auto flex w-full max-w-7xl flex-1 flex-col px-4 pb-6 pt-6 sm:px-6 lg:px-8">
@@ -122,7 +110,7 @@ export default async function SingleProductPage({
             </section>
 
             <AddToCartButton
-              productId={product.id}
+              onClick={handleAddtoCart}
               disabled={product.price <= 0}
             />
           </div>
