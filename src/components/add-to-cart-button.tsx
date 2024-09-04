@@ -20,7 +20,7 @@ export const AddToCartButton = ({
 			type="submit"
 			className="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 bg-slate-900 text-white shadow hover:bg-primary/90 h-10 px-8 w-full rounded-full text-lg"
 			onClick={async () => {
-				startTransition(() => router.push(`/cart-overlay?add=${productId}`));
+				startTransition(() => router.push(`/cart-overlay`));
 			}}
 			aria-disabled={pending}
 			disabled={pending || disabled}

@@ -49,8 +49,6 @@ export default function Home() {
     { name: "Lowest price", onClick: handleSortByLowestPrice },
   ];
 
-  console.log(productList);
-
   return (
     <div className="min-h-screen flex flex-col">
       <main className="flex-grow bg-white">
