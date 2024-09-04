@@ -1,3 +1,5 @@
+"use client";
+
 import { Suspense } from "react";
 import { ShoppingBagIcon } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "../shadcn/tooltip";

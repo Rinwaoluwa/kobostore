@@ -1,8 +1,5 @@
 import "./globals.css";
 import type { Metadata } from "next";
-import { Provider } from "react-redux";
-import { PersistGate } from "redux-persist/integration/react";
-import { store, persistor } from "@/lib/redux/store";
 
 import { NavMenu } from "@/components/ui/nav/nav-menu";
 import Footer from "@/components/ui/Footer";

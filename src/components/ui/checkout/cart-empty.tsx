@@ -1,12 +1,12 @@
 import { YnsLink } from "@/components/yns-link";
 
-export async function CartEmpty() {
+export function CartEmpty() {
 	return (
-		<div className="flex max-h-80 flex-1 flex-col items-center justify-center gap-4">
+		<div className="flex flex-1 flex-col items-center justify-center gap-4 h-[60dvh]">
 			<div className="flex flex-col items-center justify-center space-y-2 text-center">
 				<ShoppingCartIcon className="h-12 w-12 text-neutral-500" />
-				<h2 className="text-2xl font-bold tracking-tight">Title</h2>
-				<p className="text-neutral-500">Description</p>
+				<h2 className="text-2xl font-bold tracking-tight">Kobo Store</h2>
+				<p className="text-neutral-500">Delightfully commerce for everyone</p>
 			</div>
 			<YnsLink
 				className="inline-flex h-10 items-center justify-center rounded-md bg-neutral-900 px-6 text-sm font-medium text-neutral-50 shadow transition-colors hover:bg-neutral-900/90 focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-neutral-950 disabled:pointer-events-none disabled:opacity-50"

@@ -11,16 +11,28 @@ import {
   TableRow,
 } from "@/components/ui/shadcn/table";
 import { YnsLink } from "@/components/yns-link";
-import { useAppSelector } from "@/lib/redux/hooks";
+import { useAppDispatch, useAppSelector } from "@/lib/redux/hooks";
 import { RootState } from "@/lib/redux/store";
 import { FormEvent } from "react";
+import { removeFromCart, updateQuantity } from "@/lib/redux/slice/cartSlice";
 
 export const CartSummaryTable = ({ cart }: { cart: any }) => {
+  const dispatch = useAppDispatch();
   const products = useAppSelector((state: RootState) => state.cart);
   const cartTotal = products.reduce(
     (acc, sum) => acc + sum.price * sum.quantity,
     0
   );
+
+  const handleAdd = (id: string) => {
+	dispatch(updateQuantity({id, quantity: 1}));
+  };
+  const handleRemove = (id: string) => {
+	dispatch(updateQuantity({id, quantity: -1}));
+  };
+  const handleDelete = (id: string) => {
+	dispatch(removeFromCart(id));
+  };
   return (
     <form className="max-w-2xl" onSubmit={(e: FormEvent) => e.preventDefault()}>
       <h1 className="text-3xl font-bold mb-6">Your cart</h1>
@@ -63,17 +75,25 @@ export const CartSummaryTable = ({ cart }: { cart: any }) => {
                     <button
                       className="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 rounded-md text-xs group aspect-square p-0"
                       type="submit"
+					  onClick={() => {
+						if(product.quantity > 1) {
+							handleRemove(product.id);
+						} else {
+							handleDelete(product.id);
+						}
+					  }}
                     >
                       <span className="flex h-4 w-4 items-center justify-center rounded-full bg-neutral-100 pb-0.5 font-bold leading-none text-black transition-colors group-hover:bg-neutral-500 group-hover:text-white">
                         –
                       </span>
                     </button>
                     <span className="inline-block min-w-8 px-1 text-center tabular-nums">
-                      1
+                      {product.quantity}
                     </span>
                     <button
                       className="inline-flex items-center justify-center whitespace-nowrap font-medium transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 aria-disabled:pointer-events-none aria-disabled:opacity-50 hover:bg-accent hover:text-accent-foreground h-8 rounded-md text-xs group aspect-square p-0"
                       type="submit"
+					  onClick={() => handleAdd(product.id)}
                     >
                       <span className="flex h-4 w-4 items-center justify-center rounded-full bg-neutral-100 pb-0.5 font-bold leading-none text-black transition-colors group-hover:bg-neutral-500 group-hover:text-white">
                         +
@@ -93,10 +113,9 @@ export const CartSummaryTable = ({ cart }: { cart: any }) => {
             </TableCell>
             <TableCell className="text-right">
               {/* shopping rate */}
-              {Math.ceil((cartTotal / 100) * 2)}%
+              Shopping rate: {Math.ceil((cartTotal / 100) * 2)}%
             </TableCell>
           </TableRow>
-
         </TableBody>
       </Table>
     </form>

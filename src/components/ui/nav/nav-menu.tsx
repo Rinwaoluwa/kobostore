@@ -6,18 +6,23 @@ import { CartSummaryNav } from "./cart-summary-nav";
 import { usePathname } from "next/navigation";
 
 export function NavMenu() {
-  const pathname = usePathname();
+  const pathname = usePathname()
   const [activeTab, setActiveTab] = useState(0);
   const active = "bg-slate-500 text-white";
 
   useEffect(() => {
-    if (pathname === "/") {
-      setActiveTab(0);
-    } else if (pathname === "/products") {
-      setActiveTab(1);
-    } else if (pathname === "/accessories") {
-      setActiveTab(2);
-    }
+    const updateActiveTab = () => {
+      if (pathname === '/') {
+        setActiveTab(0);
+      } else if (pathname.includes('/products')) {
+        setActiveTab(1);
+      } else if (pathname.includes('/accessories')) {
+        setActiveTab(2);
+      }
+    };
+
+    updateActiveTab();
+
   }, [pathname]);
 
   return (
